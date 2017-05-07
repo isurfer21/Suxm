@@ -1,0 +1,235 @@
+#!/usr/bin/bash
+ROOT_DIR="/Users/abhishekkumar/Documents/Workshop/GitHub/Suxm"
+
+confirm () {
+    while true; do
+        read -p "$1 " yn
+        case ${yn:-$2} in
+            [Yy]* ) return 0;;
+            [Nn]* ) return 1;;
+            * ) echo "Please answer yes or no.";;
+        esac
+    done
+}
+
+SRC_DIR=$ROOT_DIR"/src"
+BIN_DIR=$ROOT_DIR"/bin"
+PUB_DIR=$ROOT_DIR"/pub"
+
+[ -d $BIN_DIR ] || mkdir $BIN_DIR
+[ -d $PUB_DIR ] || mkdir $PUB_DIR
+
+if [[ "$1" == "" ]]; then 
+    echo " Command missing! \n"
+  else 
+    cd $ROOT_DIR
+	case "$1" in
+    '-build')
+        echo " Build for current machine only"
+        go build -o ./bin/Suxm ./src/suxm.go
+        echo " Done! \n"
+    ;;
+    '-xbuild')
+        echo " Cross build for MacOSX, Windows & Linux as 32bit & 64bit"
+        cd src/
+        gox -osarch="darwin/386" -output="../bin/Suxm_{{.OS}}_{{.Arch}}"
+        gox -osarch="darwin/amd64" -output="../bin/Suxm_{{.OS}}_{{.Arch}}"
+        gox -osarch="windows/386" -output="../bin/Suxm_{{.OS}}_{{.Arch}}"
+        gox -osarch="windows/amd64" -output="../bin/Suxm_{{.OS}}_{{.Arch}}"
+        gox -osarch="linux/386" -output="../bin/Suxm_{{.OS}}_{{.Arch}}"
+        gox -osarch="linux/amd64" -output="../bin/Suxm_{{.OS}}_{{.Arch}}"
+        cd ../ 
+        echo " Done! \n"
+    ;;
+    '-xbuilds')
+        echo " Cross build for all OS and Arch"
+        cd src/
+        gox -output="../bin/Suxm_{{.OS}}_{{.Arch}}"
+        cd ../ 
+        echo " Done! \n"
+    ;;
+    '-release')
+        echo " Create distributable files"
+
+        echo " - Copying icons";
+        cp $SRC_DIR"/img/appicon.ico" $BIN_DIR"/appicon.ico"
+        cp $SRC_DIR"/img/appicon.icns" $BIN_DIR"/appicon.icns"
+        
+        echo " - Copying doc files";
+        cp $ROOT_DIR"/LICENSE" $BIN_DIR"/LICENSE"
+        cp $ROOT_DIR"/README.md" $BIN_DIR"/README.md"
+
+        echo " Create compressed binary distributable files \n"
+
+        if confirm " - Publish for Windows [Y/N]?"; then
+            echo "   Publishing release for Windows"
+            rm $PUB_DIR"/Suxm_windows_x86-64.zip"
+            TMP_DIR=$PUB_DIR"/Suxm_windows_x86-64"
+            mkdir $TMP_DIR
+            cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
+            cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
+            cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/Suxm_windows_386.exe" $TMP_DIR"/Suxm_windows_386.exe"
+            cp $BIN_DIR"/Suxm_windows_amd64.exe" $TMP_DIR"/Suxm_windows_amd64.exe"
+            cd $TMP_DIR
+            zip -r -X "../Suxm_windows_x86-64.zip" .
+            cd ..
+            rm -rf $TMP_DIR
+            if confirm " - Delete all builds for Windows [Y/N]?"; then
+                rm -rf $BIN_DIR"/Suxm_windows_386.exe"
+                rm -rf $BIN_DIR"/Suxm_windows_amd64.exe"
+            fi
+            echo "   Published. \n"
+        else
+            echo "   Proceeding without publishing for Windows \n"
+        fi
+        
+        if confirm " - Publish for MacOSX [Y/N]?"; then
+            echo "   Publishing release for MacOSX"
+            rm $PUB_DIR"/Suxm_macos_x86-64.tgz"
+            TMP_DIR=$PUB_DIR"/Suxm_darwin_x86-64"
+            mkdir $TMP_DIR
+            cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
+            cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
+            cp $BIN_DIR"/appicon.icns" $TMP_DIR"/appicon.icns"
+            cp $BIN_DIR"/Suxm_darwin_386" $TMP_DIR"/Suxm_darwin_386"
+            cp $BIN_DIR"/Suxm_darwin_amd64" $TMP_DIR"/Suxm_darwin_amd64"
+            cd $TMP_DIR
+            tar cvpzf "../Suxm_macos_x86-64.tgz" .
+            cd ..
+            rm -rf $TMP_DIR
+            if confirm " - Delete all builds for MacOSX [Y/N]?"; then
+                rm -rf $BIN_DIR"/Suxm_darwin_386"
+                rm -rf $BIN_DIR"/Suxm_darwin_amd64"
+            fi
+            echo "   Published. \n"
+        else
+            echo "   Proceeding without publishing for MacOSX \n"
+        fi
+
+        if confirm " - Publish for Linux [Y/N]?"; then
+            echo "   Publishing release for Linux"
+            rm $PUB_DIR"/Suxm_linux_x86-64.tar.bz2"
+            TMP_DIR=$PUB_DIR"/Suxm_linux_x86-64"
+            mkdir $TMP_DIR
+            cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
+            cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
+            cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/Suxm_linux_386" $TMP_DIR"/Suxm_linux_386"
+            cp $BIN_DIR"/Suxm_linux_amd64" $TMP_DIR"/Suxm_linux_amd64"
+            cp $BIN_DIR"/Suxm_linux_arm" $TMP_DIR"/Suxm_linux_arm"
+            cd $TMP_DIR
+            tar cvpjf "../Suxm_linux_x86-64.tar.bz2" .
+            cd ..
+            rm -rf $TMP_DIR
+            if confirm " - Delete all builds for Linux [Y/N]?"; then
+                rm -rf $BIN_DIR"/Suxm_linux_386"
+                rm -rf $BIN_DIR"/Suxm_linux_amd64"
+                rm -rf $BIN_DIR"/Suxm_linux_arm"
+            fi
+            echo "   Published. \n"
+        else
+            echo "   Proceeding without publishing for Linux \n"
+        fi
+
+        if confirm " - Publish for FreeBSD [Y/N]?"; then
+            echo "   Publishing release for FreeBSD"
+            rm $PUB_DIR"/Suxm_freebsd_x86-64.tar.bz2"
+            TMP_DIR=$PUB_DIR"/Suxm_freebsd_x86-64"
+            mkdir $TMP_DIR
+            cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
+            cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
+            cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/Suxm_freebsd_386" $TMP_DIR"/Suxm_freebsd_386"
+            cp $BIN_DIR"/Suxm_freebsd_amd64" $TMP_DIR"/Suxm_freebsd_amd64"
+            cp $BIN_DIR"/Suxm_freebsd_arm" $TMP_DIR"/Suxm_freebsd_arm"
+            cd $TMP_DIR
+            tar cvpjf "../Suxm_freebsd_x86-64.tar.bz2" .
+            cd ..
+            rm -rf $TMP_DIR
+            if confirm " - Delete all builds for FreeBSD [Y/N]?"; then
+                rm -rf $BIN_DIR"/Suxm_freebsd_386"
+                rm -rf $BIN_DIR"/Suxm_freebsd_amd64"
+                rm -rf $BIN_DIR"/Suxm_freebsd_arm"
+            fi
+            echo "   Published. \n"
+        else
+            echo "   Proceeding without publishing for FreeBSD \n"
+        fi
+
+        if confirm " - Publish for NetBSD [Y/N]?"; then
+            echo "   Publishing release for NetBSD"
+            rm $PUB_DIR"/Suxm_netbsd_x86-64.tar.bz2"
+            TMP_DIR=$PUB_DIR"/Suxm_netbsd_x86-64"
+            mkdir $TMP_DIR
+            cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
+            cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
+            cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/Suxm_netbsd_386" $TMP_DIR"/Suxm_netbsd_386"
+            cp $BIN_DIR"/Suxm_netbsd_amd64" $TMP_DIR"/Suxm_netbsd_amd64"
+            cp $BIN_DIR"/Suxm_netbsd_arm" $TMP_DIR"/Suxm_netbsd_arm"
+            cd $TMP_DIR
+            tar cvpjf "../Suxm_linux_x86-64.tar.bz2" .
+            cd ..
+            rm -rf $TMP_DIR
+            if confirm " - Delete all builds for NetBSD [Y/N]?"; then
+                rm -rf $BIN_DIR"/Suxm_netbsd_386"
+                rm -rf $BIN_DIR"/Suxm_netbsd_amd64"
+                rm -rf $BIN_DIR"/Suxm_netbsd_arm"
+            fi
+            echo "   Published. \n"
+        else
+            echo "   Proceeding without publishing for NetBSD \n"
+        fi
+
+        if confirm " - Publish for OpenBSD [Y/N]?"; then
+            echo "   Publishing release for OpenBSD"
+            rm $PUB_DIR"/Suxm_openbsd_x86-64.tar.bz2"
+            TMP_DIR=$PUB_DIR"/Suxm_openbsd_x86-64"
+            mkdir $TMP_DIR
+            cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
+            cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
+            cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/Suxm_openbsd_386" $TMP_DIR"/Suxm_openbsd_386"
+            cp $BIN_DIR"/Suxm_openbsd_amd64" $TMP_DIR"/Suxm_openbsd_amd64"
+            cd $TMP_DIR
+            tar cvpjf "../Suxm_openbsd_x86-64.tar.bz2" .
+            cd ..
+            rm -rf $TMP_DIR
+            if confirm " - Delete all builds for OpenBSD [Y/N]?"; then
+                rm -rf $BIN_DIR"/Suxm_openbsd_386"
+                rm -rf $BIN_DIR"/Suxm_openbsd_amd64"
+            fi
+            echo "   Published. \n"
+        else
+            echo "   Proceeding without publishing for OpenBSD \n"
+        fi
+
+        echo " Done! \n"
+    ;;
+    '-genico')
+        echo " Generating appicons from master icon"
+        cd src/img
+        convert original.png -resize 512x512 appicon.icns
+        convert original.png -resize 128x128 appicon.ico
+        cd ../../
+
+        echo " Done! \n"
+    ;;
+    '-version')
+        echo " Automator   version 1.0 \n Copyright (c) 2017 Abhishek Kumar. All rights reserved. \n"
+    ;;
+    '-help')
+        echo "\n Builder's options are:\n"
+        echo "  -version       to see the current version of the app"
+        echo "  -build         to build a binary executable for current OS & Arch only"
+        echo "  -xbuild        to cross build binary executables for MacOSX, Windows, Linux as 32 & 64 bit"
+        echo "  -xbuilds       to cross build binary executables for all OS & Arch"
+        echo "  -release       to create compressed binary distributable files"
+        echo "  -genico        to generate application icons in varied sizes & formats"
+        echo "  -help          to see the menu of command line options"
+        echo "\n Please choose accordingly. \n"
+    ;;
+    esac
+fi
+exit 0
