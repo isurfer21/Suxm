@@ -28,23 +28,9 @@ A micro web-server meant to serve locally and is very fast web-server that will 
 1. Unzip the `Suxm_macos_x86-64.zip` for Mac OS while  `Suxm_linux_x86-64.zip` for Linux; inside `/Users/username/Applications/Suxm/`.
 2. There are 2 executables, for 32 bit & 64 bit OS. So you need to keep the executable that is compatible to your system and remove the other one.
 3. Now rename the executable that you have kept by shorten it's name to **Suxm**. It will help you when you'll call it via terminal.
-4. Open the Terminal program (this is in your Applications/Utilites folder by default). Run the following command
-
-```
-touch ~/.bash_profile; open ~/.bash_profile
-```
-
-5. This will open the file in the your default text editor.
-
-```
-export PATH="$PATH:/Users/username/Applications/Suxm/bin/"
-```
-
-6. Save the file and quit the text editor. Execute your .bash_profile to update your PATH.
-
-```
-source ~/.bash_profile
-```
+4. Open the **Terminal** program (this is in your Applications/Utilites folder by default). Run this command, `touch ~/.bash_profile; open ~/.bash_profile`, it will open the file in the your default text editor.
+5. Add this line in the .bash_profile, `export PATH="$PATH:/Users/username/Applications/Suxm/bin/"`
+6. Save the file and quit the text editor. Execute your .bash_profile to update your PATH using `source ~/.bash_profile`
 
 ### Usage
 
