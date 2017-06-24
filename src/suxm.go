@@ -96,7 +96,7 @@ func (s Server) initialize() {
 	}()
 
 	timestamp := time.Now()
-	fmt.Println("Server settings \n  Root \t", s.docRoot, "\n  URL \t", ws.url, "\n  Time \t", timestamp.Format(time.RFC1123))
+	fmt.Println("Server settings \n  Root \t", s.docRoot, "\n  URL \t", ws.url, "\n  Time \t", timestamp.Format(time.RFC1123), "\n")
 	http.Handle("/", http.FileServer(http.Dir(s.docRoot)))
 	http.ListenAndServe(httpAddr, nil)
 }
