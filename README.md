@@ -15,37 +15,22 @@ A micro web-server meant to serve locally and is very fast web-server that will 
 
 ##### On Windows
 
-Unzip the `Suxm_windows_x86-64.zip` inside `C:\Programs\Suxm\`.
-
-Click **Start**, type *cmd*. When the *cmd.exe* icon appears, right click and select *Run as administrator*.
-
-To add/update system environment variables:
-
-```
-setx -m PATH "%PATH%;C:\Programs\Suxm\";
-```
+1. Unzip the `Suxm_windows_x86-64.zip` inside `C:\Programs\Suxm_windows_x86-64\`.
+2. Open File Explorer and go to `Control Panel\System and Security\System`, where you will see the basic information about your computer.
+3. Click on the **Advance system settings** link provided in sidebar at left, to open *System Properties*.
+4. Click on **Environment Variables...** button in *Advanced* tab of *System Properties* window. 
+5. Click on **PATH** in System variables section to edit it.
+6. Add the absolute path of Suxm like `C:\Programs\Suxm_windows_x86-64\bin` at the end. Suxm path should be separated by semicolon from other existing paths.
+7. Click on *OK* button to close all the popup windows one-by-one.
 
 ##### On MacOS / Linux
 
-Unzip the `Suxm_macos_x86-64.zip` for Mac OS while  `Suxm_linux_x86-64.zip` for Linux; inside `/Users/username/Applications/Suxm/`.
-
-Open the Terminal program (this is in your Applications/Utilites folder by default). Run the following command
-
-```
-touch ~/.bash_profile; open ~/.bash_profile
-```
-
-This will open the file in the your default text editor.
-
-```
-export PATH=$PATH:/Users/username/Applications/Suxm/
-```
-
-Save the file and quit the text editor. Execute your .bash_profile to update your PATH.
-
-```
-source ~/.bash_profile
-```
+1. Unzip the `Suxm_macos_x86-64.zip` for Mac OS while  `Suxm_linux_x86-64.zip` for Linux; inside `/Users/username/Applications/Suxm/`.
+2. There are 2 executables, for 32 bit & 64 bit OS. So you need to keep the executable that is compatible to your system and remove the other one.
+3. Now rename the executable that you have kept by shorten it's name to **Suxm**. It will help you when you'll call it via terminal.
+4. Open the **Terminal** program (this is in your Applications/Utilites folder by default). Run this command, `touch ~/.bash_profile; open ~/.bash_profile`, it will open the file in the your default text editor.
+5. Add this line in the .bash_profile, `export PATH="$PATH:/Users/username/Applications/Suxm/bin/"`
+6. Save the file and quit the text editor. Execute your .bash_profile to update your PATH using `source ~/.bash_profile`
 
 ### Usage
 
