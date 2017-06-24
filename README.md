@@ -35,22 +35,22 @@ A micro web-server meant to serve locally and is very fast web-server that will 
 ### Usage
 
 ```
-$ ./Suxm -help
+$ ./Suxm --help
 
-Suxm webserver (Version 0.0.1) 
+Suxm webserver (Version 1.0.0) 
 Copyright (c) 2017 Abhishek Kumar. All rights reserved. 
 
-Usage of ./Suxm:
-  -browser
-    	Open browser (default true)
-  -dir string
-    	Directory root
-  -host string
-    	Host IP or address (default "127.0.0.1")
-  -port int
-    	Port number (default 8080)
-  -svr
-    	Use server root
+Options:
+
+  -h, --help               display help information
+  -p, --port[=8080]        set custom port number
+  -u, --host[=127.0.0.1]   set host IP or server address
+  -d, --docpath            set document directory's path
+  -b, --browser[=true]     open browser on server start
+  -a, --approot[=false]    serve from application's root
+
+Done!
+
 ```
 
 ##### Serving from server-root
@@ -58,14 +58,15 @@ Usage of ./Suxm:
 When your *webapp* directory is inside **Suxm** directory or alongside it's executable application.
 
 ```
-$ ./Suxm -svr=true -dir=/webapp -port=9000
+$ ./Suxm -a=true -d=/webapp -p=9000
 
-Suxm webserver (Version 0.0.1) 
+Suxm webserver (Version 1.0.0) 
 Copyright (c) 2017 Abhishek Kumar. All rights reserved. 
 
 Server settings 
-  Root    /Users/abhishekkumar/Applications/Suxm/webapp
-  URL     http://127.0.0.1:9000 
+  Root   /Users/abhishekkumar/Applications/Suxm/webapp
+  URL    http://127.0.0.1:9000 
+  Time   Sun, 25 Jun 2017 02:08:26 IST
 
 Server status: STARTED
 A browser window should open. If not, visit the link.
@@ -77,14 +78,16 @@ Please hit 'ctrl + C' to STOP the server.
 When your *webapp* directory is placed somewhere else on your system. 
 
 ```
-$ ./Suxm -dir=/Users/abhishekkumar/Documents/webapp/ -port=9000
+$ cd /Users/abhishekkumar/Documents/webapp/
+$ ./Suxm -d=. -p=9000
 
-Suxm webserver (Version 0.0.1) 
+Suxm webserver (Version 1.0.0) 
 Copyright (c) 2017 Abhishek Kumar. All rights reserved. 
 
 Server settings 
-  Root    /Users/abhishekkumar/Documents/webapp/ 
-  URL     http://127.0.0.1:9000 
+  Root   /Users/abhishekkumar/Documents/webapp/ 
+  URL    http://127.0.0.1:9000 
+  Time   Sun, 25 Jun 2017 02:08:26 IST
 
 Server status: STARTED
 A browser window should open. If not, visit the link.
@@ -96,11 +99,11 @@ Please hit 'ctrl + C' to STOP the server.
 To specifiy custom host IP or address
 
 ```
-$ ./Suxm -dir=/Users/abhishekkumar/webapp/ -host=192.168.0.1 -port=9000
+$ ./Suxm -d=/Users/abhishekkumar/webapp/ -u=192.168.0.1 -p=9000
 ```
 
 To stop, automatic opening of browser on server start
 
 ```
-$ ./Suxm -browser=false -dir=/Users/abhishekkumar/webapp/ -port=9000
+$ ./Suxm -b=false -d=/Users/abhishekkumar/webapp/ -p=9000
 ```
