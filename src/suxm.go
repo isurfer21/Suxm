@@ -1,9 +1,9 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"github.com/kardianos/osext"
+	"github.com/mkideal/cli"
 	"log"
 	"net/http"
 	"os/exec"
@@ -45,49 +45,41 @@ func (w WebService) startBrowser() bool {
 	return cmd.Start() == nil
 }
 
-var (
-	dirRoot, hostIP          string
-	portNum                  int
-	useSrvrRoot, openBrowser bool
-)
+// Server is an application server
+type Server struct {
+	docRoot string
+}
 
-func main() {
-	fmt.Println("\nSuxm webserver (Version 0.0.1) \nCopyright (c) 2017 Abhishek Kumar. All rights reserved. \n")
-
-	srvrRoot, err := osext.ExecutableFolder()
+func (s Server) probeDocRoot() string {
+	serverRoot, err := osext.ExecutableFolder()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	flag.BoolVar(&useSrvrRoot, "svr", false, "Use server root")
-	flag.StringVar(&dirRoot, "dir", "", "Directory root")
-	flag.StringVar(&hostIP, "host", "127.0.0.1", "Host IP or address")
-	flag.IntVar(&portNum, "port", 8080, "Port number")
-	flag.BoolVar(&openBrowser, "browser", true, "Open browser")
-
-	flag.Parse()
-
-	var appDir string
-	if useSrvrRoot == true {
-		appDir = srvrRoot
-		if dirRoot != "" {
-			appDir += dirRoot
+	if appRoot == true {
+		s.docRoot = serverRoot
+		if docPath != "" {
+			s.docRoot += docPath
 		}
 	} else {
-		if dirRoot != "" {
-			appDir = dirRoot
+		if docPath != "" {
+			s.docRoot = docPath
 		} else {
 			switch runtime.GOOS {
 			case "darwin":
-				appDir = "/"
+				s.docRoot = "/"
 			case "windows":
-				appDir = "c:\\"
+				s.docRoot = "c:\\"
 			default:
-				appDir = "/"
+				s.docRoot = "/"
 			}
 		}
 	}
+	return s.docRoot
+}
 
+func (s Server) initialize() {
+	s.probeDocRoot()
 	httpAddr := hostIP + ":" + strconv.Itoa(portNum)
 
 	ws := WebService{}
@@ -103,7 +95,49 @@ func main() {
 		fmt.Println("Please hit 'ctrl + C' to STOP the server.")
 	}()
 
-	fmt.Println("Server settings \n  Root   ", appDir, "\n  URL    ", ws.url, "\n")
-	http.Handle("/", http.FileServer(http.Dir(appDir)))
+	timestamp := time.Now()
+	fmt.Println("Server settings \n  Root \t", s.docRoot, "\n  URL \t", ws.url, "\n  Time \t", timestamp.Format(time.RFC1123))
+	http.Handle("/", http.FileServer(http.Dir(s.docRoot)))
 	http.ListenAndServe(httpAddr, nil)
+}
+
+var (
+	version     = "1.0.0"
+	docPath     = ""
+	hostIP      = "127.0.0.1"
+	portNum     = 8080
+	appRoot     = false
+	openBrowser = true
+)
+
+type argT struct {
+	cli.Helper
+	Port    int    `cli:"p,port" usage:"set custom port number" dft:"8080"`
+	Host    string `cli:"u,host" usage:"set host IP or server address" dft:"127.0.0.1"`
+	DocPath string `cli:"d,docpath" usage:"set document directory's path" dft:""`
+	Browser bool   `cli:"b,browser" usage:"open browser on server start" dft:"true"`
+	AppRoot bool   `cli:"a,approot" usage:"serve from application's root" dft:"false"`
+}
+
+func main() {
+	fmt.Printf("\nSuxm webserver (Version %s) \nCopyright (c) 2017 Abhishek Kumar. All rights reserved. \n\n", version)
+
+	mode := false
+	cli.Run(new(argT), func(ctx *cli.Context) error {
+		argv := ctx.Argv().(*argT)
+		docPath = argv.DocPath
+		hostIP = argv.Host
+		portNum = argv.Port
+		openBrowser = argv.Browser
+		appRoot = argv.AppRoot
+		mode = true
+		return nil
+	})
+
+	if mode {
+		server := Server{}
+		server.initialize()
+	}
+
+	fmt.Println("\nDone!\n")
 }
