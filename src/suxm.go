@@ -79,7 +79,6 @@ func (s Server) probeDocRoot() string {
 }
 
 func (s Server) initialize() {
-	s.probeDocRoot()
 	httpAddr := hostIP + ":" + strconv.Itoa(portNum)
 
 	ws := WebService{}
@@ -96,6 +95,7 @@ func (s Server) initialize() {
 	}()
 
 	timestamp := time.Now()
+	s.docRoot = s.probeDocRoot()
 	fmt.Println("Server settings \n  Root \t", s.docRoot, "\n  URL \t", ws.url, "\n  Time \t", timestamp.Format(time.RFC1123), "\n")
 	http.Handle("/", http.FileServer(http.Dir(s.docRoot)))
 	http.ListenAndServe(httpAddr, nil)
