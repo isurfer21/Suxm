@@ -84,6 +84,10 @@ func (s Server) initialize() {
 	ws := WebService{}
 	ws.url = "http://" + httpAddr
 
+	timestamp := time.Now()
+	s.docRoot = s.probeDocRoot()
+	fmt.Println("Server settings \n  Root \t", s.docRoot, "\n  URL \t", ws.url, "\n  Time \t", timestamp.Format(time.RFC1123), "\n")
+
 	go func() {
 		fmt.Println("Server status: STARTED")
 		if ws.waitServer() && openBrowser && ws.startBrowser() {
@@ -94,9 +98,6 @@ func (s Server) initialize() {
 		fmt.Println("Please hit 'ctrl + C' to STOP the server.")
 	}()
 
-	timestamp := time.Now()
-	s.docRoot = s.probeDocRoot()
-	fmt.Println("Server settings \n  Root \t", s.docRoot, "\n  URL \t", ws.url, "\n  Time \t", timestamp.Format(time.RFC1123), "\n")
 	http.Handle("/", http.FileServer(http.Dir(s.docRoot)))
 	http.ListenAndServe(httpAddr, nil)
 }
