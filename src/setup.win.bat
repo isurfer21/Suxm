@@ -1,6 +1,6 @@
 @echo off
-INSTALLATION_DIR=%APPDATA%\Suxm
-CURRENT_DIR=%cd%
+set INSTALLATION_DIR=%APPDATA%\Suxm
+set CURRENT_DIR=%cd%
 echo.
 echo Suxm webserver (Version 1.0.0)
 echo Copyright (c) 2017 Abhishek Kumar. All rights reserved.
@@ -26,7 +26,7 @@ if "%PROCESSOR_ARCHITECTURE%"=="x86" (
 	ren Suxm_windows_amd64.exe Suxm.exe
 )
 echo  - making it globally accessible
-setx PATH "$PATH:%cd%"
+setx PATH "%cd%;%PATH%"
 cd "%CURRENT_DIR%"
 echo.
 echo Done!
