@@ -1,5 +1,5 @@
 #!/usr/bin/bash
-ROOT_DIR="/Users/abhishekkumar/Documents/Workshop/GitHub/Suxm"
+ROOT_DIR="$PWD"
 
 confirm () {
     while true; do
@@ -59,6 +59,11 @@ if [[ "$1" == "" ]]; then
         cp $ROOT_DIR"/LICENSE" $BIN_DIR"/LICENSE"
         cp $ROOT_DIR"/README.md" $BIN_DIR"/README.md"
 
+        echo " - Copying setup files";
+        cp $ROOT_DIR"/setup.lnx.sh" $BIN_DIR"/setup.lnx.sh"
+        cp $ROOT_DIR"/setup.mac.sh" $BIN_DIR"/setup.mac.sh"
+        cp $ROOT_DIR"/setup.win.bat" $BIN_DIR"/setup.win.bat"
+
         echo " Create compressed binary distributable files \n"
 
         if confirm " - Publish for Windows [Y/N]?"; then
@@ -69,6 +74,7 @@ if [[ "$1" == "" ]]; then
             cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
             cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
             cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/setup.win.bat" $TMP_DIR"/setup.bat"
             mkdir $TMP_DIR"/bin"
             cp $BIN_DIR"/Suxm_windows_386.exe" $TMP_DIR"/bin/Suxm_windows_386.exe"
             cp $BIN_DIR"/Suxm_windows_amd64.exe" $TMP_DIR"/bin/Suxm_windows_amd64.exe"
@@ -93,6 +99,7 @@ if [[ "$1" == "" ]]; then
             cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
             cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
             cp $BIN_DIR"/appicon.icns" $TMP_DIR"/appicon.icns"
+            cp $BIN_DIR"/setup.mac.sh" $TMP_DIR"/setup.sh"
             mkdir $TMP_DIR"/bin"
             cp $BIN_DIR"/Suxm_darwin_386" $TMP_DIR"/bin/Suxm_darwin_386"
             cp $BIN_DIR"/Suxm_darwin_amd64" $TMP_DIR"/bin/Suxm_darwin_amd64"
@@ -117,6 +124,7 @@ if [[ "$1" == "" ]]; then
             cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
             cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
             cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/setup.lnx.sh" $TMP_DIR"/setup.sh"
             mkdir $TMP_DIR"/bin"
             cp $BIN_DIR"/Suxm_linux_386" $TMP_DIR"/bin/Suxm_linux_386"
             cp $BIN_DIR"/Suxm_linux_amd64" $TMP_DIR"/bin/Suxm_linux_amd64"
@@ -143,6 +151,7 @@ if [[ "$1" == "" ]]; then
             cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
             cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
             cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/setup.lnx.sh" $TMP_DIR"/setup.sh"
             mkdir $TMP_DIR"/bin"
             cp $BIN_DIR"/Suxm_freebsd_386" $TMP_DIR"/bin/Suxm_freebsd_386"
             cp $BIN_DIR"/Suxm_freebsd_amd64" $TMP_DIR"/bin/Suxm_freebsd_amd64"
@@ -169,6 +178,7 @@ if [[ "$1" == "" ]]; then
             cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
             cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
             cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/setup.lnx.sh" $TMP_DIR"/setup.sh"
             mkdir $TMP_DIR"/bin"
             cp $BIN_DIR"/Suxm_netbsd_386" $TMP_DIR"/bin/Suxm_netbsd_386"
             cp $BIN_DIR"/Suxm_netbsd_amd64" $TMP_DIR"/bin/Suxm_netbsd_amd64"
@@ -195,6 +205,7 @@ if [[ "$1" == "" ]]; then
             cp $BIN_DIR"/LICENSE" $TMP_DIR"/LICENSE"
             cp $BIN_DIR"/README.md" $TMP_DIR"/README.md"
             cp $BIN_DIR"/appicon.ico" $TMP_DIR"/appicon.ico"
+            cp $BIN_DIR"/setup.lnx.sh" $TMP_DIR"/setup.sh"
             mkdir $TMP_DIR"/bin"
             cp $BIN_DIR"/Suxm_openbsd_386" $TMP_DIR"/bin/Suxm_openbsd_386"
             cp $BIN_DIR"/Suxm_openbsd_amd64" $TMP_DIR"/bin/Suxm_openbsd_amd64"
