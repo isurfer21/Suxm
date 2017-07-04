@@ -56,7 +56,7 @@ $ suxm -h
 
 then you need to manually modify or verify if the path is properly added in `~/.bash_profile`.
 
-##### How to modify/verify macos bash_profile?
+##### How to modify/verify macos/linux bash_profile?
 
 1. Open the Terminal program (this is in your Applications/Utilites folder by default). Run this command, `touch ~/.bash_profile; open ~/.bash_profile`, it will open the file in the your default text editor.
 2. Add this line in the `.bash_profile`, `export PATH="$PATH:$HOME/Documents/Programs/Suxm"` on MacOS, while `export PATH="$PATH:$HOME/Programs/Suxm"` on Linux.
