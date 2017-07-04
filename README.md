@@ -13,12 +13,13 @@ A micro web-server meant to serve locally and is very fast web-server that will 
 
 ### Installation
 
-##### On Windows
+#### On Windows
 
 1. Unzip the `Suxm_windows_x86-64.zip` anywhere on your system.
 2. Go to the unzipped folder and double click on `setup.bat` file, it will install the application on your system.
 
-**Troubleshoot**
+##### Troubleshoot
+
 Open the **Command Prompt**, run `suxm -h`. If you see the following message, 
 
 ```
@@ -29,7 +30,8 @@ operable program or batch file.
 
 then you need to manually modify or verify if the path is properly added in user's environment variable.
 
-**How to modify/verify windows environment variable?**
+##### How to modify/verify windows environment variable?
+
 1. Open File Explorer and go to `Control Panel\System and Security\System`, where you will see the basic information about your computer.
 2. Click on the **Advance system settings** link provided in sidebar at left, to open *System Properties*.
 3. Click on **Environment Variables...** button in *Advanced* tab of *System Properties* window. 
@@ -37,13 +39,14 @@ then you need to manually modify or verify if the path is properly added in user
 5. Add this path `%APPDATA%\Suxm\bin` at the end. Suxm path should be separated by semicolon from other existing paths.
 6. Click on *OK* button to close all the popup windows one-by-one.
 
-##### On MacOS / Linux
+#### On MacOS / Linux
 
 1. Unzip the `Suxm_macos_x86-64.zip` for Mac OS while  `Suxm_linux_x86-64.zip` for Linux; anywhere on your system.
 2. Open the **Terminal** program (this is in your Applications/Utilites folder by default) and go to the unzipped folder using `cd $HOME/Downloads/Suxm_linux_x86-64`.
 3. Run this command, `sh setup.sh`, it will install the application on your system.
 
-**Troubleshoot**
+##### Troubleshoot
+
 Open the **Terminal**, run `suxm -h`. If you see the following message, 
 
 ```
@@ -53,7 +56,8 @@ $ suxm -h
 
 then you need to manually modify or verify if the path is properly added in `~/.bash_profile`.
 
-**How to modify/verify macos bash_profile?**
+##### How to modify/verify macos bash_profile?
+
 1. Open the Terminal program (this is in your Applications/Utilites folder by default). Run this command, `touch ~/.bash_profile; open ~/.bash_profile`, it will open the file in the your default text editor.
 2. Add this line in the `.bash_profile`, `export PATH="$PATH:$HOME/Documents/Programs/Suxm"` on MacOS, while `export PATH="$PATH:$HOME/Programs/Suxm"` on Linux.
 3. Save the file and quit the text editor. Execute your `.bash_profile` to update your PATH using `source ~/.bash_profile`
