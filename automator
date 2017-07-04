@@ -60,9 +60,9 @@ if [[ "$1" == "" ]]; then
         cp $ROOT_DIR"/README.md" $BIN_DIR"/README.md"
 
         echo " - Copying setup files";
-        cp $ROOT_DIR"/setup.lnx.sh" $BIN_DIR"/setup.lnx.sh"
-        cp $ROOT_DIR"/setup.mac.sh" $BIN_DIR"/setup.mac.sh"
-        cp $ROOT_DIR"/setup.win.bat" $BIN_DIR"/setup.win.bat"
+        cp $ROOT_DIR"/src/setup.lnx.sh" $BIN_DIR"/setup.lnx.sh"
+        cp $ROOT_DIR"/src/setup.mac.sh" $BIN_DIR"/setup.mac.sh"
+        cp $ROOT_DIR"/src/setup.win.bat" $BIN_DIR"/setup.win.bat"
 
         echo " Create compressed binary distributable files \n"
 
