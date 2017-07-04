@@ -8,29 +8,55 @@ A micro web-server meant to serve locally and is very fast web-server that will 
 ### Download
 	
 - [Suxm\_linux\_x86-64.tar.bz2](https://app.box.com/s/zoeet80oebvzrth4wh38iibdulegvlrb)
-- [Suxm\_macos\_x86-64.tgz](https://app.box.com/s/aznzq3g4hu26ayw9u0vhay1kmus52yvb)		
+- [Suxm\_macos\_x86-64.tgz](https://app.box.com/s/aznzq3g4hu26ayw9u0vhay1kmus52yvb)
 - [Suxm\_windows\_x86-64.zip](https://app.box.com/s/e5mf5ujome2ilis25s3hxqs6e0t2rmac)
 
 ### Installation
 
 ##### On Windows
 
-1. Unzip the `Suxm_windows_x86-64.zip` inside `C:\Programs\Suxm_windows_x86-64\`.
-2. Open File Explorer and go to `Control Panel\System and Security\System`, where you will see the basic information about your computer.
-3. Click on the **Advance system settings** link provided in sidebar at left, to open *System Properties*.
-4. Click on **Environment Variables...** button in *Advanced* tab of *System Properties* window. 
-5. Click on **PATH** in System variables section to edit it.
-6. Add the absolute path of Suxm like `C:\Programs\Suxm_windows_x86-64\bin` at the end. Suxm path should be separated by semicolon from other existing paths.
-7. Click on *OK* button to close all the popup windows one-by-one.
+1. Unzip the `Suxm_windows_x86-64.zip` anywhere on your system.
+2. Go to the unzipped folder and double click on `setup.bat` file, it will install the application on your system.
+
+**Troubleshoot**
+Open the **Command Prompt**, run `suxm -h`. If you see the following message, 
+
+```
+C:\>suxm -h
+'suxm is not recognized as an internal or external command, 
+operable program or batch file.
+``` 
+
+then you need to manually modify or verify if the path is properly added in user's environment variable.
+
+**How to modify/verify windows environment variable?**
+1. Open File Explorer and go to `Control Panel\System and Security\System`, where you will see the basic information about your computer.
+2. Click on the **Advance system settings** link provided in sidebar at left, to open *System Properties*.
+3. Click on **Environment Variables...** button in *Advanced* tab of *System Properties* window. 
+4. Click on **PATH** in System variables section to edit it.
+5. Add this path `%APPDATA%\Suxm\bin` at the end. Suxm path should be separated by semicolon from other existing paths.
+6. Click on *OK* button to close all the popup windows one-by-one.
 
 ##### On MacOS / Linux
 
-1. Unzip the `Suxm_macos_x86-64.zip` for Mac OS while  `Suxm_linux_x86-64.zip` for Linux; inside `/Users/username/Applications/Suxm/`.
-2. There are 2 executables, for 32 bit & 64 bit OS. So you need to keep the executable that is compatible to your system and remove the other one.
-3. Now rename the executable that you have kept by shorten it's name to **Suxm**. It will help you when you'll call it via terminal.
-4. Open the **Terminal** program (this is in your Applications/Utilites folder by default). Run this command, `touch ~/.bash_profile; open ~/.bash_profile`, it will open the file in the your default text editor.
-5. Add this line in the .bash_profile, `export PATH="$PATH:/Users/username/Applications/Suxm/bin/"`
-6. Save the file and quit the text editor. Execute your .bash_profile to update your PATH using `source ~/.bash_profile`
+1. Unzip the `Suxm_macos_x86-64.zip` for Mac OS while  `Suxm_linux_x86-64.zip` for Linux; anywhere on your system.
+2. Open the **Terminal** program (this is in your Applications/Utilites folder by default) and go to the unzipped folder using `cd $HOME/Downloads/Suxm_linux_x86-64`.
+3. Run this command, `sh setup.sh`, it will install the application on your system.
+
+**Troubleshoot**
+Open the **Terminal**, run `suxm -h`. If you see the following message, 
+
+```
+$ suxm -h
+-bash: suxm: command not found
+```
+
+then you need to manually modify or verify if the path is properly added in `~/.bash_profile`.
+
+**How to modify/verify macos bash_profile?**
+1. Open the Terminal program (this is in your Applications/Utilites folder by default). Run this command, `touch ~/.bash_profile; open ~/.bash_profile`, it will open the file in the your default text editor.
+2. Add this line in the `.bash_profile`, `export PATH="$PATH:$HOME/Documents/Programs/Suxm"` on MacOS, while `export PATH="$PATH:$HOME/Programs/Suxm"` on Linux.
+3. Save the file and quit the text editor. Execute your `.bash_profile` to update your PATH using `source ~/.bash_profile`
 
 ### Usage
 
