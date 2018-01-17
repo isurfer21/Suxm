@@ -10,6 +10,7 @@ import (
 	"runtime"
 	"strconv"
 	"time"
+	"github.com/rs/cors"
 )
 
 // WebService contains browser specific commands.
@@ -98,8 +99,21 @@ func (s Server) initialize() {
 		fmt.Println("Please hit 'ctrl + C' to STOP the server.")
 	}()
 
-	http.Handle("/", http.FileServer(http.Dir(s.docRoot)))
-	http.ListenAndServe(httpAddr, nil)
+	if corsEnabled {
+		c := cors.New(cors.Options{
+		    AllowedOrigins: []string{"*"},
+		    AllowedMethods: []string{"GET", "PUT", "POST", "DELETE"},
+		    AllowedHeaders: []string{"Content-Type"},
+		    AllowCredentials: true,
+		})
+		mux := http.NewServeMux()
+		mux.Handle("/", http.FileServer(http.Dir(s.docRoot)))
+		handler := c.Handler(mux)
+		http.ListenAndServe(httpAddr, handler)
+	} else {
+		http.Handle("/", http.FileServer(http.Dir(s.docRoot)))
+		http.ListenAndServe(httpAddr, nil)
+	}
 }
 
 var (
@@ -109,6 +123,7 @@ var (
 	portNum     = 8080
 	appRoot     = false
 	openBrowser = true
+	corsEnabled	= true
 )
 
 type argT struct {
@@ -118,6 +133,7 @@ type argT struct {
 	DocPath string `cli:"d,docpath" usage:"set document directory's path" dft:""`
 	Browser bool   `cli:"b,browser" usage:"open browser on server start" dft:"true"`
 	AppRoot bool   `cli:"a,approot" usage:"serve from application's root" dft:"false"`
+	Cors    bool   `cli:"x,cors" usage:"allows cross domain requests" dft:"false"`
 }
 
 func main() {
@@ -131,6 +147,7 @@ func main() {
 		portNum = argv.Port
 		openBrowser = argv.Browser
 		appRoot = argv.AppRoot
+		corsEnabled = argv.Cors
 		mode = true
 		return nil
 	})
