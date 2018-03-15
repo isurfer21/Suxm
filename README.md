@@ -78,6 +78,7 @@ Options:
   -d, --docpath            set document directory's path
   -b, --browser[=true]     open browser on server start
   -a, --approot[=false]    serve from application's root
+  -x, --cors[=false]       allows cross domain requests
 
 Done!
 
