@@ -68,7 +68,8 @@ then you need to manually modify or verify if the path is properly added in `~/.
 $ ./Suxm --help
 
 Suxm webserver (Version 1.0.0) 
-Copyright (c) 2017 Abhishek Kumar. Licensed under the Apache License 2.0.
+Copyright (c) 2017 Abhishek Kumar.
+Licensed under the Apache License 2.0.
 
 Options:
 
@@ -92,7 +93,8 @@ When your *webapp* directory is inside **Suxm** directory or alongside it's exec
 $ ./Suxm -a=true -d=/webapp -p=9000
 
 Suxm webserver (Version 1.0.0) 
-Copyright (c) 2017 Abhishek Kumar. Licensed under the Apache License 2.0.
+Copyright (c) 2017 Abhishek Kumar.
+Licensed under the Apache License 2.0.
 
 Server settings 
   Root   /Users/abhishekkumar/Applications/Suxm/webapp
@@ -113,7 +115,8 @@ $ cd /Users/abhishekkumar/Documents/webapp/
 $ ./Suxm -d=. -p=9000
 
 Suxm webserver (Version 1.0.0) 
-Copyright (c) 2017 Abhishek Kumar. Licensed under the Apache License 2.0.
+Copyright (c) 2017 Abhishek Kumar.
+Licensed under the Apache License 2.0.
 
 Server settings 
   Root   /Users/abhishekkumar/Documents/webapp/ 
