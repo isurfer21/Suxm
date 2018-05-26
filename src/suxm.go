@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"github.com/kardianos/osext"
 	"github.com/mkideal/cli"
+	"github.com/rs/cors"
 	"log"
 	"net/http"
 	"os/exec"
 	"runtime"
 	"strconv"
 	"time"
-	"github.com/rs/cors"
 )
 
 // WebService contains browser specific commands.
@@ -101,10 +101,10 @@ func (s Server) initialize() {
 
 	if corsEnabled {
 		c := cors.New(cors.Options{
-		    AllowedOrigins: []string{"*"},
-		    AllowedMethods: []string{"GET", "PUT", "POST", "DELETE"},
-		    AllowedHeaders: []string{"Content-Type"},
-		    AllowCredentials: true,
+			AllowedOrigins:   []string{"*"},
+			AllowedMethods:   []string{"GET", "PUT", "POST", "DELETE"},
+			AllowedHeaders:   []string{"Content-Type"},
+			AllowCredentials: true,
 		})
 		mux := http.NewServeMux()
 		mux.Handle("/", http.FileServer(http.Dir(s.docRoot)))
@@ -123,7 +123,7 @@ var (
 	portNum     = 8080
 	appRoot     = false
 	openBrowser = true
-	corsEnabled	= true
+	corsEnabled = true
 )
 
 type argT struct {
@@ -137,7 +137,7 @@ type argT struct {
 }
 
 func main() {
-	fmt.Printf("\nSuxm webserver (Version %s) \nCopyright (c) 2017 Abhishek Kumar. All rights reserved. \n\n", version)
+	fmt.Printf("\nSuxm webserver (Version %s) \nCopyright (c) 2017 Abhishek Kumar. \nLicensed under the Apache License 2.0. \n\n", version)
 
 	mode := false
 	cli.Run(new(argT), func(ctx *cli.Context) error {
