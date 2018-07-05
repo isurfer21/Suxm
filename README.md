@@ -112,7 +112,7 @@ When your *webapp* directory is placed somewhere else on your system.
 
 ```
 $ cd /Users/abhishekkumar/Documents/webapp/
-$ ./Suxm -d=. -p=9000
+$ ./Suxm -p=9000
 
 Suxm webserver (Version 1.0.0) 
 Copyright (c) 2017 Abhishek Kumar.
