@@ -2,15 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/kardianos/osext"
-	"github.com/mkideal/cli"
-	"github.com/rs/cors"
-	"log"
 	"net/http"
+	"os"
 	"os/exec"
 	"runtime"
 	"strconv"
 	"time"
+
+	"github.com/kardianos/osext"
+	"github.com/mkideal/cli"
+	"github.com/rs/cors"
 )
 
 // WebService contains browser specific commands.
@@ -54,7 +55,8 @@ type Server struct {
 func (s Server) probeDocRoot() string {
 	serverRoot, err := osext.ExecutableFolder()
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		os.Exit(1)
 	}
 
 	if appRoot == true {
@@ -66,14 +68,12 @@ func (s Server) probeDocRoot() string {
 		if docPath != "" {
 			s.docRoot = docPath
 		} else {
-			switch runtime.GOOS {
-			case "darwin":
-				s.docRoot = "/"
-			case "windows":
-				s.docRoot = "c:\\"
-			default:
-				s.docRoot = "/"
+			pwd, err := os.Getwd()
+			if err != nil {
+				fmt.Println(err)
+				os.Exit(1)
 			}
+			s.docRoot = pwd
 		}
 	}
 	return s.docRoot
@@ -117,7 +117,7 @@ func (s Server) initialize() {
 }
 
 var (
-	version     = "1.0.0"
+	version     = "1.0.1"
 	docPath     = ""
 	hostIP      = "127.0.0.1"
 	portNum     = 8080
