@@ -25,14 +25,14 @@ mkdir -p "$INSTALLATION_DIR"
 
 if [ $# -eq 0 ]; then
 	DOWNLOAD_URI_PATH=$(
-		command curl -sSf https://github.com/isurfer21/suxm/releases |
-			command grep -o "/isurfer21/suxm/releases/download/.*/suxm_${OS}_${ARCH}" |
+		command curl -sSf https://github.com/isurfer21/Suxm/releases |
+			command grep -o "/isurfer21/Suxm/releases/download/.*/Suxm_${OS}_${ARCH}" |
 			command head -n 1
 	)
 	if [ ! "$DOWNLOAD_URI_PATH" ]; then exit 1; fi
 	DOWNLOAD_LINK="https://github.com${DOWNLOAD_URI_PATH}"
 else
-	DOWNLOAD_LINK="https://github.com/isurfer21/suxm/releases/download/${1}/suxm_${OS}_${ARCH}"
+	DOWNLOAD_LINK="https://github.com/isurfer21/Suxm/releases/download/${1}/Suxm_${OS}_${ARCH}"
 fi
 printf "Suitable build for ${OS} ${ARCH} \n  $DOWNLOAD_LINK \n"
 

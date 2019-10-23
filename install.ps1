@@ -47,19 +47,19 @@ if (!(Test-Path $INSTALLATION_DIR)) {
 } 
 
 $ABSOLUTE_FILEPATH = if ($IsWindows) {
-  "$INSTALLATION_DIR\suxm.exe"
+  "$INSTALLATION_DIR\Suxm.exe"
 } else {
-  "$INSTALLATION_DIR/suxm"
+  "$INSTALLATION_DIR/Suxm"
 }
 
 # GitHub requires TLS 1.2
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
 $DOWNLOAD_LINK = if (!$Version) {
-  $Response = Invoke-WebRequest 'https://github.com/isurfer21/suxm/releases' -UseBasicParsing
+  $Response = Invoke-WebRequest 'https://github.com/isurfer21/Suxm/releases' -UseBasicParsing
   if ($PSVersionTable.PSEdition -eq 'Core') {
     $Response.Links |
-      Where-Object { $_.href -like "/isurfer21/suxm/releases/download/*/suxm_${OS}_${ARCH}" } |
+      Where-Object { $_.href -like "/isurfer21/Suxm/releases/download/*/Suxm_${OS}_${ARCH}" } |
       ForEach-Object { 'https://github.com' + $_.href } |
       Select-Object -First 1
   } else {
@@ -71,15 +71,15 @@ $DOWNLOAD_LINK = if (!$Version) {
       $HTMLFile.write($ResponseBytes)
     }
     $HTMLFile.getElementsByTagName('a') |
-      Where-Object { $_.href -like "about:/isurfer21/suxm/releases/download/*/suxm_${OS}_${ARCH}.exe" } |
+      Where-Object { $_.href -like "about:/isurfer21/Suxm/releases/download/*/Suxm_${OS}_${ARCH}.exe" } |
       ForEach-Object { $_.href -replace 'about:', 'https://github.com' } |
       Select-Object -First 1
   }
 } else {
   if ($PSVersionTable.PSEdition -eq 'Core') {
-    "https://github.com/isurfer21/suxm/releases/download/$Version/suxm_${OS}_${ARCH}"  
+    "https://github.com/isurfer21/Suxm/releases/download/$Version/Suxm_${OS}_${ARCH}"  
   } else {
-    "https://github.com/isurfer21/suxm/releases/download/$Version/suxm_${OS}_${ARCH}.exe"
+    "https://github.com/isurfer21/Suxm/releases/download/$Version/Suxm_${OS}_${ARCH}.exe"
   }
 }
 Write-Output "Suitable build for ${OS} ${ARCH} `n  $DOWNLOAD_LINK"
@@ -98,9 +98,9 @@ if ($IsWindows) {
   Write-Output "Suxm was installed successfully to $ABSOLUTE_FILEPATH"
   Write-Output "Run 'suxm --help' to get started"
 } else {
-  chmod +x "$INSTALLATION_DIR/suxm"
+  chmod +x "$INSTALLATION_DIR/Suxm"
   Write-Output "Suxm was installed successfully to $ABSOLUTE_FILEPATH"
-  if (Get-Command suxm -ErrorAction SilentlyContinue) {
+  if (Get-Command Suxm -ErrorAction SilentlyContinue) {
     Write-Output "Run 'suxm --help' to get started"
   } else {
     Write-Output "Manually add the directory to your `$HOME/.bash_profile (or similar)"
