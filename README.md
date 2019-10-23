@@ -19,13 +19,13 @@ Use the below installation script code based on what your system supports, like
 With *Shell*:
 
 ```bash
-curl -fsSL https://isurfer21.github.io/suxm/install.sh | sh
+curl -fsSL https://isurfer21.github.io/Suxm/install.sh | sh
 ```
 
 With *PowerShell*:
 
 ```powershell
-iwr https://isurfer21.github.io/suxm/install.ps1 -useb | iex
+iwr https://isurfer21.github.io/Suxm/install.ps1 -useb | iex
 ```
 
 #### Install specific version
@@ -33,13 +33,13 @@ iwr https://isurfer21.github.io/suxm/install.ps1 -useb | iex
 With *Shell*:
 
 ```bash
-curl -fsSL https://isurfer21.github.io/suxm/install.sh | sh -s v1.0.1
+curl -fsSL https://isurfer21.github.io/Suxm/install.sh | sh -s v1.0.1
 ```
 
 With *PowerShell*:
 
 ```powershell
-iwr https://isurfer21.github.io/suxm/install.ps1 -useb -outf install.ps1; .\install.ps1 v1.0.1
+iwr https://isurfer21.github.io/Suxm/install.ps1 -useb -outf install.ps1; .\install.ps1 v1.0.1
 ```
 
 ### Semi-automatic installation
@@ -103,7 +103,7 @@ then you need to manually modify or verify if the path is properly added in `~/.
 ### Usage
 
 ```
-$ ./Suxm --help
+$ suxm --help
 
 Suxm webserver (Version 1.0.1) 
 Copyright (c) 2017 Abhishek Kumar.
@@ -128,7 +128,7 @@ Done!
 When your *webapp* directory is inside **Suxm** directory or alongside it's executable application.
 
 ```
-$ ./Suxm -a=true -d=/webapp -p=9000
+$ suxm -a=true -d=/webapp -p=9000
 
 Suxm webserver (Version 1.0.1) 
 Copyright (c) 2017 Abhishek Kumar.
@@ -150,7 +150,7 @@ When your *webapp* directory is placed somewhere else on your system.
 
 ```
 $ cd /Users/abhishekkumar/Documents/webapp/
-$ ./Suxm -p=9000
+$ suxm -p=9000
 
 Suxm webserver (Version 1.0.1) 
 Copyright (c) 2017 Abhishek Kumar.
@@ -171,11 +171,11 @@ Please hit 'ctrl + C' to STOP the server.
 To specifiy custom host IP or address
 
 ```
-$ ./Suxm -d=/Users/abhishekkumar/webapp/ -u=192.168.0.1 -p=9000
+$ suxm -d=/Users/abhishekkumar/webapp/ -u=192.168.0.1 -p=9000
 ```
 
 To stop, automatic opening of browser on server start
 
 ```
-$ ./Suxm -b=false -d=/Users/abhishekkumar/webapp/ -p=9000
+$ suxm -b=false -d=/Users/abhishekkumar/webapp/ -p=9000
 ```
