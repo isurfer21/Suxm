@@ -38,16 +38,16 @@ printf "Suitable build for ${OS} ${ARCH} \n  $DOWNLOAD_LINK \n"
 
 cd "$INSTALLATION_DIR"
 printf "Downloading the installation package \n"
-curl -fL# $DOWNLOAD_LINK -o suxm
+curl -fL# $DOWNLOAD_LINK -o Suxm
 
 printf "Allowing it to run as executable \n"
-chmod +x suxm
+chmod +x Suxm
 
 printf "Making it globally accessible \n"
 printf "\nexport PATH=\"\$PATH:$INSTALLATION_DIR\"" >> "$HOME/.bash_profile"
 
 printf "Suxm was installed successfully \n"
-if command -v suxm >/dev/null; then
+if command -v Suxm >/dev/null; then
 	printf "Run 'suxm --help' to get started \n"
 else
 	printf "Manually add the directory to your \$HOME/.bash_profile (or similar) \n"
