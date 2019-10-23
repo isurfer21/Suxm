@@ -5,15 +5,53 @@
 
 A micro web-server meant to serve locally and is very fast web-server that will make use of full capacity of your system. 
 
-### Download
-	
+### Automatic installation
+To install the app directly on your system, use the commands given below on Terminal.
+
+##### Recommended script to use
+Use the below installation script code based on what your system supports, like
+
+- on **Windows** use *PowerShell* (default)
+- on **macOS** / **Linux** use either *Shell* (default) or *PowerShell Core* (if already available)
+
+#### Install latest version
+
+With *Shell*:
+
+```bash
+curl -fsSL https://isurfer21.github.io/suxm/install.sh | sh
+```
+
+With *PowerShell*:
+
+```powershell
+iwr https://isurfer21.github.io/suxm/install.ps1 -useb | iex
+```
+
+#### Install specific version
+
+With *Shell*:
+
+```bash
+curl -fsSL https://isurfer21.github.io/suxm/install.sh | sh -s v1.0.1
+```
+
+With *PowerShell*:
+
+```powershell
+iwr https://isurfer21.github.io/suxm/install.ps1 -useb -outf install.ps1; .\install.ps1 v1.0.1
+```
+
+### Semi-automatic installation
+To install the app after manually downloading it on your system, use the links given below and follow the commands thereafter.
+
+#### Download portable version
+  
 - [Suxm\_linux\_x86-64.tar.bz2](https://app.box.com/s/zoeet80oebvzrth4wh38iibdulegvlrb)
 - [Suxm\_macos\_x86-64.tgz](https://app.box.com/s/aznzq3g4hu26ayw9u0vhay1kmus52yvb)
 - [Suxm\_windows\_x86-64.zip](https://app.box.com/s/e5mf5ujome2ilis25s3hxqs6e0t2rmac)
 
-### Installation
-
-#### On Windows
+#### Install portable version on Windows
 
 1. Unzip the `Suxm_windows_x86-64.zip` anywhere on your system.
 2. Go to the unzipped folder and double click on `setup.bat` file, it will install the application on your system.
@@ -39,7 +77,7 @@ then you need to manually modify or verify if the path is properly added in user
 5. Add this path `%APPDATA%\Suxm\bin` at the end. Suxm path should be separated by semicolon from other existing paths.
 6. Click on *OK* button to close all the popup windows one-by-one.
 
-#### On MacOS / Linux
+#### Install portable version on MacOS / Linux
 
 1. Unzip the `Suxm_macos_x86-64.zip` for Mac OS while  `Suxm_linux_x86-64.zip` for Linux; anywhere on your system.
 2. Open the **Terminal** program (this is in your Applications/Utilites folder by default) and go to the unzipped folder using `cd $HOME/Downloads/Suxm_linux_x86-64`.
@@ -67,7 +105,7 @@ then you need to manually modify or verify if the path is properly added in `~/.
 ```
 $ ./Suxm --help
 
-Suxm webserver (Version 1.0.0) 
+Suxm webserver (Version 1.0.1) 
 Copyright (c) 2017 Abhishek Kumar.
 Licensed under the Apache License 2.0.
 
@@ -92,7 +130,7 @@ When your *webapp* directory is inside **Suxm** directory or alongside it's exec
 ```
 $ ./Suxm -a=true -d=/webapp -p=9000
 
-Suxm webserver (Version 1.0.0) 
+Suxm webserver (Version 1.0.1) 
 Copyright (c) 2017 Abhishek Kumar.
 Licensed under the Apache License 2.0.
 
@@ -114,7 +152,7 @@ When your *webapp* directory is placed somewhere else on your system.
 $ cd /Users/abhishekkumar/Documents/webapp/
 $ ./Suxm -p=9000
 
-Suxm webserver (Version 1.0.0) 
+Suxm webserver (Version 1.0.1) 
 Copyright (c) 2017 Abhishek Kumar.
 Licensed under the Apache License 2.0.
 
