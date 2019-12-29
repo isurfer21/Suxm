@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"mime"
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"strconv"
 	"time"
@@ -79,6 +81,19 @@ func (s Server) probeDocRoot() string {
 	return s.docRoot
 }
 
+func (s Server) setContentType(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fileExt := filepath.Ext(r.URL.Path)
+		if fileExt != "" {
+			mimeType := mime.TypeByExtension(fileExt)
+			if len(mimeType) > 0 {
+				w.Header().Set("content-type", mimeType)
+			}
+		}
+		h.ServeHTTP(w, r)
+	})
+}
+
 func (s Server) initialize() {
 	httpAddr := hostIP + ":" + strconv.Itoa(portNum)
 
@@ -111,19 +126,24 @@ func (s Server) initialize() {
 		handler := c.Handler(mux)
 		http.ListenAndServe(httpAddr, handler)
 	} else {
-		http.Handle("/", http.FileServer(http.Dir(s.docRoot)))
+		handler := http.FileServer(http.Dir(s.docRoot))
+		if mimeEnabled {
+			handler = s.setContentType(handler)
+		}
+		http.Handle("/", handler)
 		http.ListenAndServe(httpAddr, nil)
 	}
 }
 
 var (
-	version     = "1.0.1"
+	version     = "1.0.2"
 	docPath     = ""
 	hostIP      = "127.0.0.1"
 	portNum     = 8080
 	appRoot     = false
 	openBrowser = true
-	corsEnabled = true
+	corsEnabled = false
+	mimeEnabled = false
 )
 
 type argT struct {
@@ -134,6 +154,7 @@ type argT struct {
 	Browser bool   `cli:"b,browser" usage:"open browser on server start" dft:"true"`
 	AppRoot bool   `cli:"a,approot" usage:"serve from application's root" dft:"false"`
 	Cors    bool   `cli:"x,cors" usage:"allows cross domain requests" dft:"false"`
+	Mime    bool   `cli:"m,mime" usage:"respond with header content-type" dft:"false"`
 }
 
 func main() {
@@ -148,6 +169,7 @@ func main() {
 		openBrowser = argv.Browser
 		appRoot = argv.AppRoot
 		corsEnabled = argv.Cors
+		mimeEnabled = argv.Mime
 		mode = true
 		return nil
 	})

@@ -118,6 +118,7 @@ Options:
   -b, --browser[=true]     open browser on server start
   -a, --approot[=false]    serve from application's root
   -x, --cors[=false]       allows cross domain requests
+  -m, --mime[=false]       respond with header content-type
 
 Done!
 
@@ -179,3 +180,17 @@ To stop, automatic opening of browser on server start
 ```
 $ suxm -b=false -d=/Users/abhishekkumar/webapp/ -p=9000
 ```
+
+To respond with header content-type while serving content
+
+```
+$ suxm -m=true -d=./ -p=9000
+```
+
+To allow cross domain requests while serving content
+
+```
+$ suxm -x=true -d=web/ -p=9000
+```
+
+**Note**: These command-line options can be used alone or together with other options in any combination/order.
