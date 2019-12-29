@@ -118,7 +118,7 @@ Options:
   -b, --browser[=true]     open browser on server start
   -a, --approot[=false]    serve from application's root
   -x, --cors[=false]       allows cross domain requests
-  -m, --mime[=false]       respond with header content-type
+  -m, --mime[=false]       allows custom content-type header
 
 Done!
 
@@ -145,7 +145,7 @@ A browser window should open. If not, visit the link.
 Please hit 'ctrl + C' to STOP the server.
 ```
 
-##### Serving from directory-root
+##### Serving from current directory
 
 When your *webapp* directory is placed somewhere else on your system. 
 
@@ -167,30 +167,83 @@ A browser window should open. If not, visit the link.
 Please hit 'ctrl + C' to STOP the server.
 ```
 
-##### Other commands
+##### Serving from relative directory
 
-To specifiy custom host IP or address
-
-```
-$ suxm -d=/Users/abhishekkumar/webapp/ -u=192.168.0.1 -p=9000
-```
-
-To stop, automatic opening of browser on server start
+When your *webapp* directory is placed further inside the sub-folder of current directory.
 
 ```
-$ suxm -b=false -d=/Users/abhishekkumar/webapp/ -p=9000
+$ cd /Users/abhishekkumar/Documents/
+$ suxm -d=./webapp -p=9000
 ```
 
-To respond with header content-type while serving content
+##### Custom host address
+
+To specifiy custom host IP or address, run this command
 
 ```
-$ suxm -m=true -d=./ -p=9000
+$ suxm -u=192.168.0.1
 ```
 
-To allow cross domain requests while serving content
+##### Custom port number
+
+To specifiy custom port number, run this command
 
 ```
-$ suxm -x=true -d=web/ -p=9000
+$ suxm -p=9000
 ```
 
-**Note**: These command-line options can be used alone or together with other options in any combination/order.
+##### Custom host address & port number
+
+To specifiy custom host IP or address and port number, run this command
+
+```
+$ suxm -u=192.168.0.1 -p=9000
+```
+
+##### Disable self opening of browser
+
+To disable, automatic opening of browser on server start, run this command
+
+```
+$ suxm -b=false
+```
+
+##### Cross domain requests
+
+To allow cross domain requests while serving content, run this command
+
+```
+$ suxm -x=true
+```
+
+##### Custom content-type header
+
+To respond with custom content-type header while serving content, run this command
+
+```
+$ suxm -m=true
+```
+
+While on browser, add content-type query parameter in URL with custom content-type value.
+
+For example, when requested a *markdown* file via URL [http://localhost/readme.md](http://localhost/readme.md) then by default it is served with 
+
+```
+Content-Type: text/plain; charset=utf-8
+```
+
+but when `?content-type=text/markdown` is added in the URL as [http://localhost/readme.md?content-type=text/markdown](http://localhost/readme.md?content-type=text/markdown) then it is served with
+
+```
+Content-Type: text/markdown
+```
+
+if custom content-type header option `-m` is enabled in `suxm`.
+
+#### Notes
+
+1. All of these command-line options can be used alone or together with other options in any combination/order.
+2. Any of these *boolean* type command-line options can be declared as
+	- `-b`, `-b=1`, `-b=true` → equivalent
+	- `-b=0`, `-b=false` → equivalent
+3. The static server would be served on single address only, i.e., by default localhost but if declared custom host address then it would be served on that host address only and would not serve on localhost.
